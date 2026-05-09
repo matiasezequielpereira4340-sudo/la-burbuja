@@ -282,6 +282,17 @@
     .stats-bar { gap: 0; }
     .stat { min-width: 50%; }
   }
+
+  /* ── MARCA LOGOS ── */
+  .marcas-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+  .marca-logo-card { width: 110px; height: 60px; background: #fff; border: 1.5px solid rgba(26,58,107,.1);
+    border-radius: 12px; display: flex; align-items: center; justify-content: center; padding: 10px;
+    transition: border-color .2s, transform .2s, box-shadow .2s; overflow: hidden; }
+  .marca-logo-card:hover { border-color: var(--sky); transform: translateY(-3px); box-shadow: 0 6px 18px rgba(77,200,216,.18); }
+  .marca-logo-card img { max-width: 90px; max-height: 40px; object-fit: contain; filter: grayscale(30%); transition: filter .2s; }
+  .marca-logo-card:hover img { filter: grayscale(0%); }
+  .marca-fallback { font-weight: 800; font-size: .82rem; color: var(--navy); text-align: center;
+    width: 100%; display: none; align-items: center; justify-content: center; }
 </style>
 </head>
 <body>
@@ -319,11 +330,11 @@
       <div class="carousel-overlay"></div>
     </div>
     <div class="carousel-slide">
-      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80" alt="Limpieza del hogar" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1584820927498-cad076eeceed?w=1600&q=80" alt="Limpieza del hogar" loading="lazy">
       <div class="carousel-overlay"></div>
     </div>
     <div class="carousel-slide">
-      <img src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=1600&q=80" alt="Productos profesionales" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?w=1600&q=80" alt="Productos profesionales" loading="lazy">
       <div class="carousel-overlay"></div>
     </div>
     <div class="carousel-content">
@@ -392,20 +403,20 @@
   <div class="marcas-inner">
     <p class="marcas-title">Marcas que trabajamos</p>
     <div class="marcas-grid">
-      <span class="marca-pill">Magistral</span>
-      <span class="marca-pill">Virulana</span>
-      <span class="marca-pill">Blem</span>
-      <span class="marca-pill">Poett</span>
-      <span class="marca-pill">Ayudín</span>
-      <span class="marca-pill">Mr. Músculo</span>
-      <span class="marca-pill">Flash</span>
-      <span class="marca-pill">Clorox</span>
-      <span class="marca-pill">Pledge</span>
-      <span class="marca-pill">Procenex</span>
-      <span class="marca-pill">Pato</span>
-      <span class="marca-pill">Skip</span>
-      <span class="marca-pill">Ala</span>
-      <span class="marca-pill">Ariel</span>
+      <div class="marca-logo-card" title="Magistral"><img src="https://logo.clearbit.com/magistral.com.ar" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt="Magistral"><span class="marca-fallback" style="display:none">Magistral</span></div>
+      <div class="marca-logo-card" title="Virulana"><img src="https://logo.clearbit.com/virulana.com.ar" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt="Virulana"><span class="marca-fallback" style="display:none">Virulana</span></div>
+      <div class="marca-logo-card" title="Poett"><img src="https://logo.clearbit.com/poett.com" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt="Poett"><span class="marca-fallback" style="display:none">Poett</span></div>
+      <div class="marca-logo-card" title="Ayudín"><img src="https://logo.clearbit.com/ayudin.com.ar" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt="Ayudín"><span class="marca-fallback" style="display:none">Ayudín</span></div>
+      <div class="marca-logo-card" title="Mr. Músculo"><img src="https://logo.clearbit.com/mrmusculo.com.ar" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt="Mr. Músculo"><span class="marca-fallback" style="display:none">Mr. Músculo</span></div>
+      <div class="marca-logo-card" title="Clorox"><img src="https://logo.clearbit.com/clorox.com" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt="Clorox"><span class="marca-fallback" style="display:none">Clorox</span></div>
+      <div class="marca-logo-card" title="Ariel"><img src="https://logo.clearbit.com/ariel.com" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt="Ariel"><span class="marca-fallback" style="display:none">Ariel</span></div>
+      <div class="marca-logo-card" title="Skip"><img src="https://logo.clearbit.com/skip.com.ar" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt="Skip"><span class="marca-fallback" style="display:none">Skip</span></div>
+      <div class="marca-logo-card" title="Ala"><img src="https://logo.clearbit.com/ala.com.ar" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt="Ala"><span class="marca-fallback" style="display:none">Ala</span></div>
+      <div class="marca-logo-card" title="Pato"><img src="https://logo.clearbit.com/pato.com.ar" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt="Pato"><span class="marca-fallback" style="display:none">Pato</span></div>
+      <div class="marca-logo-card" title="Procenex"><img src="https://logo.clearbit.com/procenex.com.ar" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt="Procenex"><span class="marca-fallback" style="display:none">Procenex</span></div>
+      <div class="marca-logo-card" title="Blem"><img src="https://logo.clearbit.com/blem.com.ar" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt="Blem"><span class="marca-fallback" style="display:none">Blem</span></div>
+      <div class="marca-logo-card" title="Pledge"><img src="https://logo.clearbit.com/pledge.com" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt="Pledge"><span class="marca-fallback" style="display:none">Pledge</span></div>
+      <div class="marca-logo-card" title="Flash"><img src="https://logo.clearbit.com/flashcleaning.com" onerror="this.style.display='none';this.nextSibling.style.display='flex'" alt="Flash"><span class="marca-fallback" style="display:none">Flash</span></div>
     </div>
   </div>
 </section>
