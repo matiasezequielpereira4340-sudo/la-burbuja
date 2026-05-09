@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Burbuja · Productos de Limpieza · Desde 1992</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --sky: #4DC8D8;
+      --sky-light: #A8E6ED;
+      --sky-pale: #E8F8FA;
+      --navy: #1A3A6B;
+      --navy-mid: #2D5A9E;
+      --white: #FFFFFF;
+      --off-white: #F5FEFF;
+      --shadow: 0 4px 24px rgba(26,58,107,0.10);
+      --radius: 20px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--off-white);
+      color: var(--navy);
+      overflow-x: hidden;
+    }
+    /* BUBBLES */
+    .bubbles-bg {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    .bubble-float {
+      position: absolute; border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.7), rgba(77,200,216,0.18));
+      border: 1.5px solid rgba(77,200,216,0.25);
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(0) scale(1);   opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 0.6; }
+      100% { transform: translateY(-110vh) scale(1.1); opacity: 0; }
+    }
+    /* HEADER */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.93);
+      backdrop-filter: blur(14px);
+      border-bottom: 2px solid rgba(77,200,216,0.25);
+      padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+      box-shadow: 0 2px 20px rgba(26,58,107,0.08);
+    }
+    .header-logo { display: flex; align-items: center; gap: 12px; }
+    .header-logo img { height: 48px; width: auto; }
+    .header-tagline { font-size: 12px; color: var(--navy-mid); font-weight: 600; letter-spacing: 0.04em; line-height: 1.3; }
+    nav { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+    nav a {
+      text-decoration: none; font-size: 12px; font-weight: 700; color: var(--navy);
+      padding: 6px 14px; border-radius: 50px; border: 2px solid transparent; transition: all 0.2s; white-space: nowrap;
+    }
+    nav a:hover { background: var(--sky); color: var(--white); border-color: var(--sky); }
+    .nav-contact { background: var(--navy); color: var(--white) !important; border-color: var(--navy) !important; }
+    .nav-contact:hover { background: var(--sky) !important; border-color: var(--sky) !important; }
+    /* HERO FOTO */
+    .hero {
+      position: relative; z-index: 1;
+      height: 540px;
+      overflow: hidden;
+    }
+    .hero-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(26,58,107,0.82) 0%,
+        rgba(26,58,107,0.55) 50%,
+        rgba(26,58,107,0.15) 100%
+      );
+      display: flex; align-items: center;
+      padding: 0 60px;
+    }
+    .hero-content { max-width: 520px; }
+    .hero-badge {
+      display: inline-block;
+      background: var(--sky); color: var(--white);
+      font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 6px 18px; border-radius: 50px; margin-bottom: 20px;
+      animation: fadeInLeft 0.6s ease both;
+    }
+    .hero-logo-small {
+      width: 90px; height: auto; margin-bottom: 16px;
+      filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+      animation: fadeInLeft 0.65s 0.05s ease both;
+    }
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 900; line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 14px;
+      animation: fadeInLeft 0.7s 0.1s ease both;
+    }
+    .hero-content h1 span { color: var(--sky-light); }
+    .hero-content p {
+      font-size: 15px; font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.7; margin-bottom: 28px;
+      animation: fadeInLeft 0.7s 0.15s ease both;
+    }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; animation: fadeInLeft 0.7s 0.2s ease both; }
+    .btn-primary {
+      background: var(--sky); color: var(--white); border: none;
+      padding: 13px 26px; border-radius: 50px;
+      font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800;
+      cursor: pointer; text-decoration: none; transition: all 0.2s;
+      box-shadow: 0 4px 20px rgba(77,200,216,0.45);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(77,200,216,0.55); background: #3ab8ca; }
+    .btn-secondary {
+      background: transparent; color: var(--white);
+      border: 2.5px solid rgba(255,255,255,0.6);
+      padding: 13px 26px; border-radius: 50px;
+      font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800;
+      cursor: pointer; text-decoration: none; transition: all 0.2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.15); border-color: var(--white); }
+    /* STATS */
+    .stats {
+      position: relative; z-index: 1;
+      display: flex; justify-content: center; flex-wrap: wrap;
+      gap: 12px; padding: 36px 24px 48px;
+    }
+    .stat-card {
+      background: var(--white); border: 2px solid rgba(77,200,216,0.3);
+      border-radius: var(--radius); padding: 20px 28px; text-align: center;
+      min-width: 130px; box-shadow: var(--shadow); transition: transform 0.2s;
+    }
+    .stat-card:hover { transform: translateY(-4px); }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--sky); line-height: 1; }
+    .stat-label { font-size: 11px; font-weight: 700; color: var(--navy-mid); letter-spacing: 0.05em; text-transform: uppercase; margin-top: 5px; }
+    /* MAIN LAYOUT */
+    .main-wrapper {
+      position: relative; z-index: 1;
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 20px 80px;
+      display: grid; grid-template-columns: 260px 1fr;
+      gap: 28px; align-items: start;
+    }
+    /* SIDEBAR */
+    .sidebar { position: sticky; top: 84px; }
+    .sidebar-title {
+      font-size: 10px; font-weight: 800; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--sky); margin-bottom: 12px; padding-left: 4px;
+    }
+    .cat-btn {
+      display: flex; align-items: center; gap: 10px;
+      width: 100%; padding: 11px 16px; border-radius: 14px;
+      border: none; background: transparent;
+      font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700;
+      color: var(--navy); cursor: pointer; text-align: left;
+      transition: all 0.18s; margin-bottom: 4px;
+    }
+    .cat-btn:hover { background: var(--sky-pale); color: var(--sky); }
+    .cat-btn.active { background: var(--sky); color: var(--white); box-shadow: 0 4px 14px rgba(77,200,216,0.35); }
+    .cat-btn .cat-icon { font-size: 18px; flex-shrink: 0; }
+    .cat-btn .cat-count {
+      margin-left: auto; font-size: 10px;
+      background: rgba(255,255,255,0.3); padding: 2px 7px;
+      border-radius: 20px; font-weight: 800;
+    }
+    .cat-btn:not(.active) .cat-count { background: rgba(77,200,216,0.15); color: var(--sky); }
+    /* PRODUCTS PANEL */
+    .products-panel { min-width: 0; }
+    .section-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+    .section-icon {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, var(--sky), var(--navy-mid));
+      border-radius: 16px; display: flex; align-items: center; justify-content: center;
+      font-size: 26px; box-shadow: 0 4px 14px rgba(77,200,216,0.35); flex-shrink: 0;
+    }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--navy); }
+    .section-subtitle { font-size: 13px; color: var(--navy-mid); font-weight: 600; }
+    .cat-section { display: none; }
+    .cat-section.active { display: block; }
+    /* PRODUCT GRID */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 12px;
+    }
+    .product-card {
+      background: var(--white);
+      border: 2px solid rgba(77,200,216,0.18);
+      border-radius: 16px;
+      padding: 16px 14px;
+      transition: all 0.2s;
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .product-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--sky), var(--navy-mid));
+      transform: scaleY(0); transform-origin: top;
+      transition: transform 0.3s;
+    }
+    .product-card:hover { border-color: var(--sky); box-shadow: 0 6px 22px rgba(77,200,216,0.18); transform: translateX(4px); }
+    .product-card:hover::before { transform: scaleY(1); }
+    .product-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--sky); flex-shrink: 0;
+    }
+    .product-name {
+      font-size: 12.5px; font-weight: 700;
+      color: var(--navy); line-height: 1.35;
+    }
+    /* CONSULTA CTA */
+    .cta-consulta {
+      margin-top: 28px;
+      background: linear-gradient(135deg, var(--sky) 0%, var(--navy-mid) 100%);
+      border-radius: var(--radius); padding: 20px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .cta-consulta p { color: var(--white); font-size: 14px; font-weight: 700; }
+    .cta-consulta small { color: rgba(255,255,255,0.75); font-size: 12px; display: block; margin-top: 2px; }
+    .cta-consulta a {
+      background: var(--white); color: var(--navy);
+      text-decoration: none; font-weight: 800; font-size: 13px;
+      padding: 10px 20px; border-radius: 50px;
+      white-space: nowrap; transition: all 0.2s;
+    }
+    .cta-consulta a:hover { background: var(--sky-pale); }
+    /* CONTACT */
+    .contact-section {
+      position: relative; z-index: 1;
+      background: linear-gradient(135deg, var(--sky) 0%, var(--navy-mid) 100%);
+      padding: 60px 24px; text-align: center;
+    }
+    .contact-section h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; color: var(--white); margin-bottom: 10px; }
+    .contact-section p { color: rgba(255,255,255,0.85); font-size: 15px; font-weight: 600; margin-bottom: 36px; }
+    .contact-grid { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; max-width: 900px; margin: 0 auto; }
+    .contact-card {
+      background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.3);
+      border-radius: var(--radius); padding: 20px 24px; color: var(--white);
+      text-decoration: none; transition: all 0.2s; min-width: 180px; backdrop-filter: blur(8px);
+    }
+    .contact-card:hover { background: rgba(255,255,255,0.25); transform: translateY(-3px); }
+    .contact-card-icon { font-size: 28px; margin-bottom: 8px; }
+    .contact-card-label { font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.75; }
+    .contact-card-value { font-size: 14px; font-weight: 700; margin-top: 4px; }
+    footer {
+      background: var(--navy); color: rgba(255,255,255,0.65);
+      text-align: center; padding: 24px; font-size: 13px; font-weight: 600;
+    }
+    footer span { color: var(--sky-light); }
+    .reveal { opacity: 0; transform: translateY(16px); transition: all 0.45s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-22px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @media (max-width: 768px) {
+      .main-wrapper { grid-template-columns: 1fr; }
+      .sidebar { position: static; display: flex; flex-wrap: wrap; gap: 6px; }
+      .cat-btn { flex: 0 1 auto; width: auto; padding: 8px 12px; font-size: 12px; }
+      .cat-btn .cat-count { display: none; }
+      nav { display: none; }
+      .hero { height: 420px; }
+      .hero-overlay { padding: 0 28px; }
+      .hero-content h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bubbles-bg" id="bubblesBg"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-logo">
+    <img src="la_burbuja-02.png" alt="La Burbuja" />
+    <div class="header-tagline">Productos de Limpieza<br>Villa María, Córdoba</div>
+  </div>
+  <nav>
+    <a href="#productos">Productos</a>
+    <a href="#contacto">Contacto</a>
+    <a href="https://wa.me/5493534012349" target="_blank" class="nav-contact">💬 WhatsApp</a>
+  </nav>
+</header>
+
+<!-- HERO CON FOTO -->
+<section class="hero">
+  <img src="IMG-20260508-WA0137.jpg" alt="La Burbuja local" class="hero-img" />
+  <div class="hero-overlay">
+    <div class="hero-content">
+      <div class="hero-badge">🪧 Desde 1992 · Villa María, Córdoba</div>
+      <img src="la_burbuja-02.png" alt="La Burbuja" class="hero-logo-small" />
+      <h1>Todo en productos<br><span>de limpieza</span></h1>
+      <p>Sueltos y envasados. Para el hogar, la oficina y el negocio. Con la atención que merecés.</p>
+      <div class="hero-ctas">
+        <a href="#productos" class="btn-primary">Ver productos</a>
+        <a href="https://wa.me/5493534012349" target="_blank" class="btn-secondary">💬 Consultános</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-card reveal"><div class="stat-num">+30</div><div class="stat-label">Años de trayectoria</div></div>
+  <div class="stat-card reveal"><div class="stat-num">100+</div><div class="stat-label">Productos disponibles</div></div>
+  <div class="stat-card reveal"><div class="stat-num">Gratis</div><div class="stat-label">Envío desde $30.000</div></div>
+  <div class="stat-card reveal"><div class="stat-num">15%</div><div class="stat-label">Descuento por volumen</div></div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="main-wrapper" id="productos">
+  <aside class="sidebar">
+    <div class="sidebar-title">Categorías</div>
+    <button class="cat-btn active" onclick="showCat('liquidos',this)"><span class="cat-icon">🧴</span> Líquidos a granel<span class="cat-count">14</span></button>
+    <button class="cat-btn" onclick="showCat('aerosoles',this)"><span class="cat-icon">🪲</span> Aerosoles<span class="cat-count">6</span></button>
+    <button class="cat-btn" onclick="showCat('trapos',this)"><span class="cat-icon">🧹</span> Trapos y repasadores<span class="cat-count">10</span></button>
+    <button class="cat-btn" onclick="showCat('papel',this)"><span class="cat-icon">🧻</span> Papel e higiene<span class="cat-count">7</span></button>
+    <button class="cat-btn" onclick="showCat('escobillones',this)"><span class="cat-icon">🦺</span> Escobillones y baño<span class="cat-count">12</span></button>
+    <button class="cat-btn" onclick="showCat('palas',this)"><span class="cat-icon">🪣</span> Palas y secadores<span class="cat-count">14</span></button>
+    <button class="cat-btn" onclick="showCat('microfibra',this)"><span class="cat-icon">✨</span> Microfibra y gamuzas<span class="cat-count">7</span></button>
+    <button class="cat-btn" onclick="showCat('tachos',this)"><span class="cat-icon">🗑️</span> Tachos y baldes<span class="cat-count">12</span></button>
+    <button class="cat-btn" onclick="showCat('bolsas',this)"><span class="cat-icon">🛍️</span> Bolsas<span class="cat-count">6</span></button>
+    <button class="cat-btn" onclick="showCat('esponjas',this)"><span class="cat-icon">🧽</span> Esponjas y abrasivos<span class="cat-count">7</span></button>
+    <button class="cat-btn" onclick="showCat('ambiente',this)"><span class="cat-icon">🌸</span> Aromatizantes<span class="cat-count">2</span></button>
+  </aside>
+
+  <div class="products-panel">
+
+    <!-- LIQUIDOS -->
+    <div class="cat-section active" id="cat-liquidos">
+      <div class="section-header reveal"><div class="section-icon">🧴</div><div><div class="section-title">Líquidos a granel</div><div class="section-subtitle">Todos en envases x5lt</div></div></div>
+      <div class="product-grid">
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Detergente x5lt Clásico Verde/Incoloro</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Lavandina x5lt</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Detergente Concentrado x5lt</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Cloro x5lt</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Desengrasante x5lt</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Desodorante x5lt</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Desengrasante Industrial Tersan Mega x5lt</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Jabón Líquido para Manos Johnson x5lt</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Cera 8M Express x5lt</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Cera 8M Classic Incolora/Roja/Negra x5lt</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Limpia Vidrios x5lt para Diluir</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Limpia Vidrios Mr Músculo x5lt</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Alcohol Puro Porta 90% x1lt</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Alcohol Quemar Porta x1lt</div></div>
+      </div>
+      <div class="cta-consulta reveal"><div><p>¿Necesitás precio o más info?</p><small>Respondemos por WhatsApp al instante</small></div><a href="https://wa.me/5493534012349" target="_blank">💬 Consultar ahora</a></div>
+    </div>
+
+    <!-- AEROSOLES -->
+    <div class="cat-section" id="cat-aerosoles">
+      <div class="section-header reveal"><div class="section-icon">🪲</div><div><div class="section-title">Aerosoles</div><div class="section-subtitle">Insecticidas y limpiadores en spray</div></div></div>
+      <div class="product-grid">
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Raid Doble Acción Aerosol</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Raid Sin Olor Aerosol</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Raid Casa y Jardín Aerosol</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Raid Mata Moscas y Mosquitos Aerosol</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Raid Max Sin Olor Cucarachas/Arañas Aerosol</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Raid Exterminador Cucarachas/Arañas Aerosol</div></div>
+      </div>
+      <div class="cta-consulta reveal"><div><p>¿Necesitás precio o más info?</p><small>Respondemos por WhatsApp al instante</small></div><a href="https://wa.me/5493534012349" target="_blank">💬 Consultar ahora</a></div>
+    </div>
+
+    <!-- TRAPOS -->
+    <div class="cat-section" id="cat-trapos">
+      <div class="section-header reveal"><div class="section-icon">🧹</div><div><div class="section-title">Trapos y repasadores</div><div class="section-subtitle">Algodón, rejillas y más</div></div></div>
+      <div class="product-grid">
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Rejilla para Auto Javier 100% Algodón</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Trapo de Piso Consorcio Rayado Juancho Art 242</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Rejilla Javier Cocina 100% Algodón</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Trapo de Piso Económico Mr Trapo Azul</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Trapo de Piso Juancho Rayado Art 281</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Trapo de Piso Nido de Abeja 100% Algodón Javier</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Repasadores Blancos 100% Algodón 50x45cm</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Repasadores Juancho Art 360</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Repasador Juancho con Guarda Francesa Art 355</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Repasador Juancho Toalla Color Art 354</div></div>
+      </div>
+      <div class="cta-consulta reveal"><div><p>¿Necesitás precio o más info?</p><small>Respondemos por WhatsApp al instante</small></div><a href="https://wa.me/5493534012349" target="_blank">💬 Consultar ahora</a></div>
+    </div>
+
+    <!-- PAPEL -->
+    <div class="cat-section" id="cat-papel">
+      <div class="section-header reveal"><div class="section-icon">🧻</div><div><div class="section-title">Papel e higiene</div><div class="section-subtitle">Papel higiénico, toallas y bobinas</div></div></div>
+      <div class="product-grid">
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Papel Higiénico Sanidad x6 und x30mts</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Papel Higiénico Higienol x4 und x30mts Doble Hoja</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Papel Higiénico Institucional x4 und x300mts Doble Hoja Tissue</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Maxirollo Felpita x200 paños</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Bobina x2 und x300mts Doble Hoja Tissue Blanco</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Bobina x2 und x400mts Doble Hoja Tissue Blanco</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Caja de Toallas Intercaladas x2500 Hojas Blancas</div></div>
+      </div>
+      <div class="cta-consulta reveal"><div><p>¿Necesitás precio o más info?</p><small>Respondemos por WhatsApp al instante</small></div><a href="https://wa.me/5493534012349" target="_blank">💬 Consultar ahora</a></div>
+    </div>
+
+    <!-- ESCOBILLONES -->
+    <div class="cat-section" id="cat-escobillones">
+      <div class="section-header reveal"><div class="section-icon">🦺</div><div><div class="section-title">Escobillones y baño</div><div class="section-subtitle">Cepillos, sopapas y accesorios</div></div></div>
+      <div class="product-grid">
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Escobillón Home Kit Mora</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Escobillón Samantha Italy</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Escobillón Virulana Extra Suave</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Escobillón Salzano Cerda Bigote</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Escobillón Virulana Rincones</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Escobillón Cerda Samantha</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Escobillón Samantha Laura</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Limpia Inodoros Samantha con Base</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Escobilla para Inodoro sin Base Make</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Escobilla Palito Make</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Limpia Inodoro con Base Make</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Limpia Inodoro sin Base Fiorentina</div></div>
+      </div>
+      <div class="cta-consulta reveal"><div><p>¿Necesitás precio o más info?</p><small>Respondemos por WhatsApp al instante</small></div><a href="https://wa.me/5493534012349" target="_blank">💬 Consultar ahora</a></div>
+    </div>
+
+    <!-- PALAS -->
+    <div class="cat-section" id="cat-palas">
+      <div class="section-header reveal"><div class="section-icon">🪣</div><div><div class="section-title">Palas y secadores</div><div class="section-subtitle">Herramientas de limpieza de piso</div></div></div>
+      <div class="product-grid">
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Secador Aquaraid Fiorentina x30cm</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Secador Aquaraid Fiorentina x40cm</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Secador Aquaraid Virulana x30cm</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Secador Aquaraid Virulana x40cm</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Secador Doble Goma Reforzado x34cm</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Secador Doble Goma Reforzado x43cm</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Secador Doble Goma Económico</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Secador Doble Goma Make Económico</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Pala de Mano Virulana</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Pala de Mano Fiorentina</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Pala con Mango Datomax</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Pala con Mango Rebatible Virulana</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Pala de Chapa con Mango Madera</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Pala con Mango Samantha</div></div>
+      </div>
+      <div class="cta-consulta reveal"><div><p>¿Necesitás precio o más info?</p><small>Respondemos por WhatsApp al instante</small></div><a href="https://wa.me/5493534012349" target="_blank">💬 Consultar ahora</a></div>
+    </div>
+
+    <!-- MICROFIBRA -->
+    <div class="cat-section" id="cat-microfibra">
+      <div class="section-header reveal"><div class="section-icon">✨</div><div><div class="section-title">Microfibra y gamuzas</div><div class="section-subtitle">Para superficies y vidrios</div></div></div>
+      <div class="product-grid">
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Microfibra para Vidrios Media Naranja</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Microfibra para Vidrios Económica Laffitte</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Microfibra Media Naranja Multiuso</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Microfibra Algodón Virulana</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Mopa Algodón Samantha</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Mopa de Microfibra Virulana</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Gamuza Media Naranja</div></div>
+      </div>
+      <div class="cta-consulta reveal"><div><p>¿Necesitás precio o más info?</p><small>Respondemos por WhatsApp al instante</small></div><a href="https://wa.me/5493534012349" target="_blank">💬 Consultar ahora</a></div>
+    </div>
+
+    <!-- TACHOS -->
+    <div class="cat-section" id="cat-tachos">
+      <div class="section-header reveal"><div class="section-icon">🗑️</div><div><div class="section-title">Tachos y baldes</div><div class="section-subtitle">Para hogar y uso profesional</div></div></div>
+      <div class="product-grid">
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Tacho de Residuos Gemplast x68lt Redondo</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Tacho de Residuos Florida x60lt Redondo</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Tacho de Residuos Florida x34lt Redondo</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Tacho Florida Tapa Vaivén Cuadrado x60lt</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Tacho de Residuos Florida x22lt Redondo</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Tacho Florida x6lt Tapa Vaivén</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Tacho Make x6lt Cuadrado Negro</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Balde con Escurridor Matriplast Reforzado</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Balde Pop Reforzado x9lt</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Balde Pop Reforzado x14lt</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Balde Redondo Make x10lt Negro</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Pulverizador Gyber Reforzado x500ml / x1lt</div></div>
+      </div>
+      <div class="cta-consulta reveal"><div><p>¿Necesitás precio o más info?</p><small>Respondemos por WhatsApp al instante</small></div><a href="https://wa.me/5493534012349" target="_blank">💬 Consultar ahora</a></div>
+    </div>
+
+    <!-- BOLSAS -->
+    <div class="cat-section" id="cat-bolsas">
+      <div class="section-header reveal"><div class="section-icon">🛍️</div><div><div class="section-title">Bolsas</div><div class="section-subtitle">Residuos de todos los tamaños</div></div></div>
+      <div class="product-grid">
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Bolsas Paquete 45x60 x30 und</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Bolsas 90x120 Paquete x10 und</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Bolsas Green Plast 60x90 x10 und</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Bolsas Mr Trapo 45x60 x10 und</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Bolsas Make 50x70 x10 und</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Bolsas Green Plast 80x110 x10 und</div></div>
+      </div>
+      <div class="cta-consulta reveal"><div><p>¿Necesitás precio o más info?</p><small>Respondemos por WhatsApp al instante</small></div><a href="https://wa.me/5493534012349" target="_blank">💬 Consultar ahora</a></div>
+    </div>
+
+    <!-- ESPONJAS -->
+    <div class="cat-section" id="cat-esponjas">
+      <div class="section-header reveal"><div class="section-icon">🧽</div><div><div class="section-title">Esponjas y abrasivos</div><div class="section-subtitle">Fibras, lanas y accesorios de limpieza</div></div></div>
+      <div class="product-grid">
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Esponja Virulana Fibra Verde x2 und</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Esponja de Bronce Pollito Cantarini x22gr</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Esponja para Sanitarios Samantha</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Lija al Agua para Sanitarios</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Esponja Virulana para Platos Lisa/Cuadraditos</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Esponja Samantha Superficies Delicadas</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Esponja de Acero Pollito Cantarini x22gr</div></div>
+      </div>
+      <div class="cta-consulta reveal"><div><p>¿Necesitás precio o más info?</p><small>Respondemos por WhatsApp al instante</small></div><a href="https://wa.me/5493534012349" target="_blank">💬 Consultar ahora</a></div>
+    </div>
+
+    <!-- AMBIENTE -->
+    <div class="cat-section" id="cat-ambiente">
+      <div class="section-header reveal"><div class="section-icon">🌸</div><div><div class="section-title">Aromatizantes</div><div class="section-subtitle">Fragancias para el hogar</div></div></div>
+      <div class="product-grid">
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Aerosol de Ambiente Make Fresh</div></div>
+        <div class="product-card reveal"><div class="product-dot"></div><div class="product-name">Aerosol de Ambiente Saphirus</div></div>
+      </div>
+      <div class="cta-consulta reveal"><div><p>¿Necesitás precio o más info?</p><small>Respondemos por WhatsApp al instante</small></div><a href="https://wa.me/5493534012349" target="_blank">💬 Consultar ahora</a></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contacto">
+  <h2>¿Necesitás asesoramiento?</h2>
+  <p>Estamos para ayudarte · Lun a Vie: 9:30 a 13h / 17 a 20:30h · Sáb: 9:30 a 13:30h</p>
+  <div class="contact-grid">
+    <a href="https://wa.me/5493534012349" target="_blank" class="contact-card">
+      <div class="contact-card-icon">💬</div>
+      <div class="contact-card-label">WhatsApp</div>
+      <div class="contact-card-value">353 401-2349</div>
+    </a>
+    <a href="https://instagram.com/laburbujatodosuelto.vm" target="_blank" class="contact-card">
+      <div class="contact-card-icon">📸</div>
+      <div class="contact-card-label">Instagram</div>
+      <div class="contact-card-value">@laburbujatodosuelto.vm</div>
+    </a>
+    <a href="mailto:laburbujavillamaria@gmail.com" class="contact-card">
+      <div class="contact-card-icon">✉️</div>
+      <div class="contact-card-label">Email</div>
+      <div class="contact-card-value">laburbujavillamaria@gmail.com</div>
+    </a>
+    <div class="contact-card">
+      <div class="contact-card-icon">📍</div>
+      <div class="contact-card-label">Ubicación</div>
+      <div class="contact-card-value">Villa María, Córdoba</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 <span>La Burbuja</span> · Productos de Limpieza · Desde 1992 · Villa María, Córdoba
+</footer>
+
+<script>
+  // BUBBLES
+  const bg = document.getElementById('bubblesBg');
+  for (let i = 0; i < 16; i++) {
+    const b = document.createElement('div');
+    b.className = 'bubble-float';
+    const size = 20 + Math.random() * 70;
+    b.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;bottom:${-size}px;animation-duration:${12+Math.random()*18}s;animation-delay:${Math.random()*15}s;`;
+    bg.appendChild(b);
+  }
+
+  // TABS
+  function showCat(id, btn) {
+    document.querySelectorAll('.cat-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('cat-' + id).classList.add('active');
+    btn.classList.add('active');
+    if (window.innerWidth < 768) document.getElementById('productos').scrollIntoView({behavior:'smooth'});
+  }
+
+  // REVEAL
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 35);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.05 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
